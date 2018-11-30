@@ -13,8 +13,9 @@
 // ----------------------------------------------------------------------------------
 
 using System.Reflection;
-using Microsoft.Azure.Graph.RBAC.Version1_6;
-using Microsoft.Azure.Graph.RBAC.Version1_6.Models;
+using Microsoft.Azure.Graph.RBAC.Version1_6.ActiveDirectory;
+using Microsoft.Azure.Graph.RBAC.Models;
+using Microsoft.Azure.Graph.RBAC;
 using Microsoft.Azure.ServiceManagemenet.Common.Models;
 using Microsoft.Rest.ClientRuntime.Azure.TestFramework;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
@@ -196,7 +197,7 @@ namespace Microsoft.Azure.Commands.Resources.Test.ScenarioTests
                         controllerAdmin.GraphClient.TenantID,
                         newUser.ObjectId);
 
-                    controllerAdmin.GraphClient.Groups.AddMember(newGroup.ObjectId, new GroupAddMemberParameters(memberUrl));
+                    controllerAdmin.GraphClient.Groups.AddMemberWithHttpMessagesAsync(newGroup.ObjectId, new GroupAddMemberParameters(memberUrl));
 
                     return new[] { string.Format(scriptMethod, newGroup.ObjectId, newUser.ObjectId, newUser.DisplayName) };
                 },
@@ -702,21 +703,21 @@ namespace Microsoft.Azure.Commands.Resources.Test.ScenarioTests
         {
             if (user != null)
             {
-                controllerAdmin.GraphClient.Users.Delete(user.ObjectId);
+                controllerAdmin.GraphClient.Users.DeleteWithHttpMessagesAsync(user.ObjectId);
             }
         }
         private void DeleteAdGroup(ResourcesController controllerAdmin, ADGroup group)
         {
             if (group != null)
             {
-                controllerAdmin.GraphClient.Groups.Delete(group.ObjectId);
+                controllerAdmin.GraphClient.Groups.DeleteWithHttpMessagesAsync(group.ObjectId);
             }
         }
         private void DeleteAdApp(ResourcesController controllerAdmin, Application app)
         {
             if (app != null)
             {
-                controllerAdmin.GraphClient.Applications.Delete(app.ObjectId);
+                controllerAdmin.GraphClient.Applications.DeleteWithHttpMessagesAsync(app.ObjectId);
             }
         }
 
@@ -724,7 +725,7 @@ namespace Microsoft.Azure.Commands.Resources.Test.ScenarioTests
         {
             if (newServicePrincipal != null)
             {
-                controllerAdmin.GraphClient.ServicePrincipals.Delete(newServicePrincipal.ObjectId);
+                controllerAdmin.GraphClient.ServicePrincipals.DeleteWithHttpMessagesAsync(newServicePrincipal.ObjectId);
             }
         }
     }
