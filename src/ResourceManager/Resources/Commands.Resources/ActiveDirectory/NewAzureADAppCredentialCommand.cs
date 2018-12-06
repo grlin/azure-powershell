@@ -125,7 +125,6 @@ namespace Microsoft.Azure.Commands.ActiveDirectory
                     // Create object for key credential
                     var keyCredential = new KeyCredential()
                     {
-                        ////CustomKeyIdentifier = "12",
                         EndDate = EndDate,
                         StartDate = StartDate,
                         KeyId = Guid.NewGuid().ToString(),

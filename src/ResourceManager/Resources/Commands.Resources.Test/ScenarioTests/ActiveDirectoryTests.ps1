@@ -723,8 +723,9 @@ Tests Creating and deleting application using Service Principal Credentials.
 function Test-CreateDeleteSpPasswordCredentials
 {
     # Setup
-    $displayName = getAssetName
-    $password = getAssetName
+	$getAssetName = ConvertTo-SecureString "test" -AsPlainText -Force
+    $displayName = $getAssetName
+	$password = $getAssetName
 
     # Test - Add SP with a password cred
     $servicePrincipal = New-AzureRmADServicePrincipal -DisplayName $displayName  -Password $password
